@@ -32,8 +32,8 @@ export const chatting = async (req, res) => {
   const { recieverId } = req.params;
   const { id } = req.user;
   const { text } = req.body;
-  const { photoPath } = `/public/assets/${req.file?.filename}` || "";
-
+  const photoPath  = (req.file)? `/public/assets/${req.file.filename}` : null;
+  
   try {
     const sendMsg = new Message({
       senderId: id,
@@ -55,7 +55,7 @@ export const chatting = async (req, res) => {
       console.log(`User disconnected: ${socket.id}`);
     });
   });
-    res.status(201).json(saved);
+    res.status(201).json(savedMsg);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

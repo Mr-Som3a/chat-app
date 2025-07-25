@@ -16,10 +16,10 @@ const SignupForm = ({ onSuccess,btn }) => {
       validationSchema={SignupSchema}
       onSubmit={async(values) => {
         console.log("Signup:", values)
+      
         try {
           const data = await signup(values)
         console.log(data)
-        onSuccess(); // simulate signup success
         } catch (error) {
           console.log(error)
 

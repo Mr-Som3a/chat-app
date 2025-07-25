@@ -3,9 +3,10 @@ import { Box, Button, Typography } from "@mui/material";
 import LoginForm from "./login.jsx";
 import SignupForm from "./signup.jsx";
 
-const AuthForm = ({ onAuthSuccess }) => {
+const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
 
+  
   return (
     <Box
       sx={{
@@ -22,9 +23,9 @@ const AuthForm = ({ onAuthSuccess }) => {
       </Typography>
 
       {isLogin ? (
-        <LoginForm onSuccess={onAuthSuccess} btn={"login"} />
+        <LoginForm  btn={"login"} />
       ) : (
-        <SignupForm onSuccess={onAuthSuccess} btn={"signup"} />
+        <SignupForm btn={"signup"} />
       )}
 
       <Button

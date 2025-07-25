@@ -7,9 +7,9 @@ const useMessageStore = create((set) => ({
   loading:false,
   error:[],
 
-  getMessages: async () => {
+  getMessages: async (id) => {
     try {
-      const data = await getOldMsg();
+      const data = await getOldMsg(id);
       console.log(data, "inside zustand");
       set({ messages: data ,loading:false});
     } catch (error) {

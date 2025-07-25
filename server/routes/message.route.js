@@ -5,8 +5,8 @@ import {chatting ,getOldMsg}from "../controllers/chating.js";
 
 const router = Router()
 
-router.get("/:recieverId",verifyToken, getOldMsg)
-router.post("/:recieverId",verifyToken,upload.single('photoPath'),chatting)
+router.get("/:recieverId",verifyToken, getOldMsg) // done
+router.post("/:recieverId",verifyToken,upload.single('photoPath'),chatting) // done
 
 
 export default router

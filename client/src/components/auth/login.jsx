@@ -2,23 +2,23 @@ import { TextField, Button, Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { login } from "../../../api/auth";
+import { useNavigate } from "react-router-dom";
 
-const SignupSchema = Yup.object().shape({
-  name: Yup.string().required("Required"),
+const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string().min(6, "Min 6 characters").required("Required"),
 });
 
-const SignupForm = ({ onSuccess ,btn}) => {
+const LoginForm = ({ btn}) => {
+const navigate=useNavigate()
   return (
     <Formik
-      initialValues={{ name: "", email: "", password: "" }}
-      validationSchema={SignupSchema}
+      initialValues={{ email: "", password: "" }}
+      validationSchema={LoginSchema}
       onSubmit={async(values) => {
-        console.log("login:", values);
         try {
-          const {data} = await login(values)
-          console.log(data)
+          await login(values)
+          navigate("/")
         } catch (error) {
           console.log(error)
         }
@@ -56,4 +56,4 @@ const SignupForm = ({ onSuccess ,btn}) => {
   );
 };
 
-export default SignupForm;
+export default LoginForm;

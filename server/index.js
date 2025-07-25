@@ -1,4 +1,5 @@
 import express from "express"
+import cors from "cors"
 import { configDotenv } from "dotenv"
 import dataBase from "./config/db.config.js"
 import path from "path"
@@ -17,6 +18,10 @@ const __dirname = path.dirname(__filename)
 
 //  MIDDELWARES
 app.use(express.json())
+app.use(cors({
+  origin: 'http://localhost:8080', 
+  credentials: true               // If you are using cookies or headers
+}));
 app.use("/assets",express.static(path.join(__dirname,'public/assets')))
 
 //  ROUTES

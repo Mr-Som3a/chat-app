@@ -1,8 +1,12 @@
-import { Box, Typography, List, ListItem, Avatar} from "@mui/material";
-import useUserStore from "../store/user";
+import { Box, Typography, List, ListItem, Avatar } from "@mui/material";
+import useUserStore from "../store/user.js";
+import { useEffect } from "react";
 const Sidebar = () => {
-  const {users}=useUserStore(state=>state.users)
-  console.log(users)
+  const { users, fetchUsers,setChatWith } = useUserStore();
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -10,20 +14,27 @@ const Sidebar = () => {
         bgcolor: "#005079ff",
         color: "white",
         p: 2,
-        // height: "100%",
       }}
     >
       <Typography variant="h6" gutterBottom>
-        Chats
+        Friends
       </Typography>
       <List>
-        {users?.map(user=>(
-          <ListItem key={user._id} button>
-          <Avatar sx={{ bgcolor: "green" }} variant="rounded">
-            {user.fullName||"M"}
-          </Avatar>
-        </ListItem>
-        ))}
+        {users.length === 0 ? (
+          <span>empty</span>
+        ) : (
+          users.map((user) => (
+            <ListItem key={user._id} onClick={()=>setChatWith(user)}>
+              <Avatar
+                sx={{ bgcolor: "green", marginRight: "5px" }}
+                variant="rounded"
+              >
+                {user.fullName.slice(0, 1)}
+              </Avatar>
+              <span>{user.fullName}</span>
+            </ListItem>
+          ))
+        )}
       </List>
     </Box>
   );
