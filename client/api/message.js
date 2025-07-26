@@ -17,7 +17,7 @@ export const getOldMsg = async (recieverId) => {
   }
 };
 export const sendMsg = async (body) => {
-  // const socket = io(URL);
+  const socket = io(URL);
   try {
     const { data } = await axios.post(URL, body, {
       headers: {

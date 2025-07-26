@@ -1,8 +1,9 @@
 import { Box, Typography, List, ListItem, Avatar } from "@mui/material";
 import useUserStore from "../store/user.js";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 const Sidebar = () => {
-  const { users, fetchUsers,setChatWith } = useUserStore();
+  const { users, fetchUsers, setChatWith } = useUserStore();
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -24,15 +25,17 @@ const Sidebar = () => {
           <span>empty</span>
         ) : (
           users.map((user) => (
-            <ListItem key={user._id} onClick={()=>setChatWith(user)}>
-              <Avatar
-                sx={{ bgcolor: "green", marginRight: "5px" }}
-                variant="rounded"
-              >
-                {user.fullName.slice(0, 1)}
-              </Avatar>
-              <span>{user.fullName}</span>
+              <Link to={`/message/${user._id}`} onClick={()=>setChatWith(user)}>
+            <ListItem key={user._id}>
+                <Avatar
+                  sx={{ bgcolor: "green", marginRight: "5px" }}
+                  variant="rounded"
+                >
+                  {user.fullName.slice(0, 1)}
+                </Avatar>
+                <span>{user.fullName}</span>
             </ListItem>
+              </Link>
           ))
         )}
       </List>

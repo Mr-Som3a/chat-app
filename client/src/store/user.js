@@ -8,7 +8,7 @@ const useUserStore = create((set) => ({
   error: [],
 
   setChatWith: (user)=>{
-    // localStorage.setItem('user',user)
+    localStorage.setItem('user',user)
     set({chatWith:user})
   },
 
