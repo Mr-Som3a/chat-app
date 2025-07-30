@@ -1,7 +1,10 @@
 import { create } from "zustand";
-import { getOldMsg } from "../../api/message.js";
-import { socket } from "../../api/message.js";
-const useMessageStore = create((set) => ({
+import { getOldMsg, sendMessage } from "../../api/message.js";
+import useUserStore from "./user.js";
+import { useNavigate } from "react-router-dom";
+
+
+const useMessageStore = create((set,get) => ({
 
   messages: [],
   loading:false,
@@ -9,27 +12,43 @@ const useMessageStore = create((set) => ({
 
   getMessages: async (id) => {
     try {
+      
       const data = await getOldMsg(id);
-      console.log(data, "inside zustand");
+
       set({ messages: data ,loading:false});
     } catch (error) {
       set({error,loading:false})
     }
   },
-  sendMessage: (message) => {
-    socket.emit('chat:message', message);
-  },
-  receiveMessage: (message) => {
-    set((state) => ({
-      messages: [...state.messages, message],
-    }));
+  sendMessage: async(message) => {
+    try {
+      const data = await sendMessage(message)
+      set({messages:[...get().messages,data]})
+    } catch (error) {
+      console.log(error)
+    }
+    
   },
 
-  initSocketListener: () => {
-    socket.on('chat:message', (message) => {
-      useChatStore.getState().receiveMessage(message);
-    });
+  subscribeToMessage:()=>{
+    const {socket,chatWith} = useUserStore.getState()
+    
+    if(!chatWith) return console.log('no user ');
+  
+    socket?.on("newMessage",(newMessage)=>{
+      if(newMessage.senderId !== chatWith._id){
+        return;
+      } 
+      set({messages:[...get().messages,newMessage]})
+      
+    })
+  
   },
+  unSubscribeToMessage :()=>{
+    const socket = useUserStore.getState().socket
+    socket?.off("newMessage")
+  }
+
 }));
 
 

@@ -13,9 +13,9 @@ const MessageInput = ({msg,setMsg,handleSend}) => {
         placeholder="Type a message"
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+        onKeyDown={(e) => e.key === "Enter" }
       />
-      <IconButton color="primary" onClick={()=>handleSend(msg)}>
+      <IconButton color="primary" onClick={()=>handleSend()}>
         <SendIcon />
       </IconButton>
     </Box>

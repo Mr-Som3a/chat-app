@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken"
+import User from "../models/users.model.js";
 
 const verifyToken = async (req, res, next) => {
   try {
@@ -9,8 +10,12 @@ const verifyToken = async (req, res, next) => {
     if (token.startsWith("Bearer ")){
         token =token.slice(7,token.length).trimLeft()
     } 
-    const verified = jwt.verify(token,process.env.JWT_SECRET_KEY)
-    req.user =verified
+    const decoded = jwt.verify(token,process.env.JWT_SECRET_KEY)
+    if(!decoded){
+      return res.status(401).json({message:"Token is not valid"})
+    }
+    const user = await User.findById(decoded.id).select("-password");
+    req.user =user
     next();
   } catch (error) {
     res.status(500).json({message:error.message})

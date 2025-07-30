@@ -21,12 +21,12 @@ const Sidebar = () => {
         Friends
       </Typography>
       <List>
-        {users.length === 0 ? (
+        {users?.length === 0 ? (
           <span>empty</span>
         ) : (
-          users.map((user) => (
-              <Link to={`/message/${user._id}`} onClick={()=>setChatWith(user)}>
-            <ListItem key={user._id}>
+          users?.map((user) => (
+              <Link key={user._id} to={`/message/${user._id}`} onClick={()=>setChatWith(user)}>
+            <ListItem >
                 <Avatar
                   sx={{ bgcolor: "green", marginRight: "5px" }}
                   variant="rounded"

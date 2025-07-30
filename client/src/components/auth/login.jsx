@@ -1,8 +1,9 @@
 import { TextField, Button, Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { login } from "../../../api/auth";
+
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../../store/user";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -10,6 +11,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginForm = ({ btn}) => {
+  const {login}=useUserStore()
 const navigate=useNavigate()
   return (
     <Formik

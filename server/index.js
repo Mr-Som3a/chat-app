@@ -1,16 +1,18 @@
+import { configDotenv } from "dotenv"
 import express from "express"
 import cors from "cors"
-import { configDotenv } from "dotenv"
 import dataBase from "./config/db.config.js"
 import path from "path"
 import authRouter from "./routes/auth.route.js"
 import messageRouter from "./routes/message.route.js"
 import usersRouter from "./routes/users.route.js"
 import { fileURLToPath } from "url"
+import { app,server } from "./config/socket.js"
+
+
 
 
 // CONFIGRATION
-const app = express()
 configDotenv()
 const port = process.env.PORT || 3000
 const __filename = fileURLToPath(import.meta.url)
@@ -29,10 +31,13 @@ app.use("/api/auth",authRouter)
 app.use("/api/message",messageRouter)
 app.use("/api/users",usersRouter)
 
+// socket.io configuration
+
+
 
 // PORT LESTENING
-app.listen(port,()=>{
-    console.log('server listening on port '+port)
+server.listen(port,()=>{
+    console.log('server listening on port '+ port)
     //  DATA BASE CONNECTION
     dataBase()
 })

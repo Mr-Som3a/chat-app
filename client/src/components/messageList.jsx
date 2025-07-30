@@ -1,20 +1,25 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import { useEffect, useRef } from "react";
 
 const MessageList = ({ messages, id }) => {
-  console.log(messages);
-  // const messagesL = [
-  //   { text: "Hey there!", sender: "friend" },
-  //   { text: "Hi! How are you?", sender: "me" },
-  // ];
-
+  const lasTMessage = useRef(null);
+  useEffect(() => {
+    if (lasTMessage.current && messages) {
+      lasTMessage.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
       {messages.length === 0 ? (
-        <Typography sx={{display:"flex",justifyContent:"center",marginTop:"2rem"}}>Start Chating, Say Hello</Typography>
+        <Typography
+          sx={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
+        >
+          Start Chating, Say Hello
+        </Typography>
       ) : (
         messages.map((msg, index) => (
           <Box
+            ref={lasTMessage}
             key={index}
             sx={{
               alignSelf: msg.senderId === id ? "flex-end" : "flex-start",
@@ -34,4 +39,4 @@ const MessageList = ({ messages, id }) => {
   );
 };
 
-export default React.memo(MessageList);
+export default MessageList;

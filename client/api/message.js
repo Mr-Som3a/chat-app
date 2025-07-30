@@ -1,10 +1,7 @@
 import axios from "axios";
-import { io } from "socket.io-client";
+// import {socket} from "../api/socket.js"
+const URL = `${import.meta.env.VITE_SERVER_URL}/api/message/`;
 
-const URL = `${import.meta.env.VITE_SERVER_URL}/message/`;
-
-// socket.js
-export const socket = io(URL);
 
 export const getOldMsg = async (recieverId) => {
   try {
@@ -16,13 +13,12 @@ export const getOldMsg = async (recieverId) => {
     console.log(error);
   }
 };
-export const sendMsg = async (body) => {
-  const socket = io(URL);
+export const sendMessage = async (body) => {
   try {
-    const { data } = await axios.post(URL, body, {
+    const { data } = await axios.post(`${URL}${body.recieverId}`, body, {
       headers: {
         "Content-Type": "multipart/form-data",
-        "auth-x": localStorage.getItem(token),
+        "auth-x": `Bearer ${localStorage.getItem("token")}`,
       },
     });
     return data;

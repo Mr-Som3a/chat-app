@@ -32,7 +32,6 @@ export const Signup = async (req, res) => {
 };
 
 export const Login = async (req, res) => {
-    console.log(req.body)
     try {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email });
@@ -45,7 +44,7 @@ export const Login = async (req, res) => {
     }
 
     const token =(user)?genToken(user._id, res):null;
-    delete user.password;
+    delete user['password'];
 
     res.status(200).json({ token: token, user: user });
   } catch (error) {
@@ -56,3 +55,12 @@ export const Login = async (req, res) => {
 export const Logout = async (req, res) => {
   res.status(200).send("loged out");
 };
+
+export const checkAuth = (req, res) => {
+  try {
+    res.status(200).json(req.user);
+  } catch (error) {
+    console.log("Error in checkAuth controller", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};  
