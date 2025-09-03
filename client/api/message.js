@@ -1,6 +1,6 @@
 import axios from "axios";
 // import {socket} from "../api/socket.js"
-const URL = import.meta.env.MODE === "development"?`${import.meta.env.VITE_SERVER_URL}/api/message`:'/api/message/';
+const URL =`${import.meta.env.VITE_SERVER_URL}/api/message`;
 
 export const getOldMsg = async (recieverId) => {
   try {
