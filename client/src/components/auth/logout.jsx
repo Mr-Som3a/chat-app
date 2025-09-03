@@ -7,7 +7,9 @@ const Logout = () => {
      localStorage.clear();
     navigate("/login");
    },2000)
-  return <div>logout...</div>;
+  return <div className="flex justify-center items-center">
+    <div className=" h-screen bg-center loading  loading-spinner loading-xl"></div>
+  </div>;
 };
 
 export default Logout;

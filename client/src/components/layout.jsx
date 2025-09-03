@@ -1,28 +1,34 @@
 import { useEffect, useState } from "react";
-import Sidebar from "./sidebar";
 import { Outlet } from "react-router-dom";
 import useUserStore from "../store/user";
+import LoadingSpinner from "./loadingSpinner";
 
 const Layout = () => {
-  const {checkAuth}=useUserStore()
+  const { checkAuth, disConnectSocket} = useUserStore();
+  const [isLoading, setIsLoading ] =useState(false)
+  useEffect(() => {
+    try{
+      setIsLoading(true)
+      checkAuth();
+    }finally{
+      setIsLoading(false)
+    }
+    return () => {
+      disConnectSocket();
+    };
+  }, []);
 
-  const [loading,setLoading]=useState(true)
-
-  useEffect(()=>{
-    checkAuth().then(()=>setLoading(false))
-
-  },[])
-
-  if(loading){
+  if (isLoading) {
     return (
-      <div>Looding...</div>
-    )
+      <>
+        <LoadingSpinner />
+      </>
+    );
   }
   return (
-    <>
-      <Sidebar />
+    <div className="bg-[url('/bgk.jpg')] bg-no-repeat bg-cover bg-center h-screen flex justify-center items-center ">
       <Outlet />
-    </>
+    </div>
   );
 };
 

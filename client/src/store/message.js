@@ -1,14 +1,13 @@
 import { create } from "zustand";
 import { getOldMsg, sendMessage } from "../../api/message.js";
 import useUserStore from "./user.js";
-import { useNavigate } from "react-router-dom";
 
 
 const useMessageStore = create((set,get) => ({
 
   messages: [],
   loading:false,
-  error:[],
+  error:null,
 
   getMessages: async (id) => {
     try {
@@ -21,11 +20,13 @@ const useMessageStore = create((set,get) => ({
     }
   },
   sendMessage: async(message) => {
+    set({error:null})
     try {
       const data = await sendMessage(message)
+      console.log(data,'check')
       set({messages:[...get().messages,data]})
     } catch (error) {
-      console.log(error)
+      set({error})
     }
     
   },

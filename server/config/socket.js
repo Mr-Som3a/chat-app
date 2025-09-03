@@ -26,9 +26,11 @@ const io = new Server(server, {
     
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
-    socket.on("disconnected", () => {
+    socket.on("disconnect", () => {
       console.log("a user disconnected id: " + socket.id);
+       if (userId) {
       delete userSocketMap[userId];
+    }
       io.emit("getOnlineUsers", Object.keys(userSocketMap));
     });
   });

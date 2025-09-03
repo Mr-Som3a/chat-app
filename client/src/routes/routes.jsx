@@ -3,8 +3,10 @@ import Layout from "../components/layout.jsx";
 import WelcomeChat from "../components/welcomeChat.jsx";
 import ChatWith from "../components/chatWith.jsx";
 import { protectedChatLoader, protectedLoader } from "./auth.js";
-import AuthForm from "../components/auth/authForm.jsx";
 import Logout from "../components/auth/logout.jsx";
+import AuthPage from "../pages/authPage.jsx";
+import ChatWindow from "../pages/chatWindow.jsx";
+import ProfilePage from "../pages/profilePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,19 +15,28 @@ const router = createBrowserRouter([
     loader: protectedLoader,
     children: [
       {
-        index:true,
-        element: <WelcomeChat />,
-      },
-      {
-        path: "/message/:recieverId",
-        element: <ChatWith />,
-        loader: protectedChatLoader,
+        element: <ChatWindow />,
+        children: [
+          {
+            index: true,
+            element: <WelcomeChat />,
+          },
+          {
+            path: "/message/:recieverId",
+            loader: protectedChatLoader,
+            element: <ChatWith />,
+          },
+          {
+            path: "/profile/:id",
+            element: <ProfilePage />,
+          },
+        ],
       },
     ],
   },
   {
     path: "/login",
-    element: <AuthForm />,
+    element: <AuthPage />,
   },
   {
     path: "logout",

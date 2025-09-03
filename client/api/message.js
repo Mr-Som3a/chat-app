@@ -2,11 +2,10 @@ import axios from "axios";
 // import {socket} from "../api/socket.js"
 const URL = `${import.meta.env.VITE_SERVER_URL}/api/message/`;
 
-
 export const getOldMsg = async (recieverId) => {
   try {
     const { data } = await axios.get(`${URL}${recieverId}`, {
-      headers: { "auth-x": `Bearer ${localStorage.getItem("token")}`},
+      headers: { "auth-x": `Bearer ${localStorage.getItem("token")}` },
     });
     return data;
   } catch (error) {
@@ -14,15 +13,17 @@ export const getOldMsg = async (recieverId) => {
   }
 };
 export const sendMessage = async (body) => {
-  try {
-    const { data } = await axios.post(`${URL}${body.recieverId}`, body, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "auth-x": `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+  console.log('last point',body)
+  const { data } = await axios.post(`${URL}${body.recieverId}`, body, {
+    headers: {
+      "auth-x": `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  return data;
 };
+
+
+export const sendImage = async()=>{
+  
+  return await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.CLOUDINARY_CLOUD_NAME}/image/upload`)
+}

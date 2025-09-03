@@ -1,5 +1,6 @@
 import Message from "../models/messages.model.js";
 import { getRecieverSocketId, io } from "../config/socket.js";
+import cloudinary from "../middleware/upload.js";
 
 export const getOldMsg = async (req,res) => {
     try {
@@ -20,15 +21,28 @@ export const getOldMsg = async (req,res) => {
 export const sendMessage = async (req, res) => {
   const { recieverId } = req.params;
   const { id } = req.user;
-  const { text } = req.body;
-  const photoPath  = (req.file)? `/public/assets/${req.file.filename}` : null;
-  
+  const { text,image } = req.body;
+  let imageUrl = null;
   try {
+    if(image){
+      try {
+        const result = await cloudinary.uploader.upload(image,{
+      use_filename: true,      // use original file name
+      unique_filename: false,  // do not add random string
+      overwrite: true,         // optional: replace if exists
+    })
+        console.log(result,"result")
+        imageUrl = result.secure_url
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     const sendMsg = new Message({
       senderId: id,
       recieverId: recieverId,
       text: text,
-      img: photoPath,
+      img: imageUrl,
     });
     
     await sendMsg.save();

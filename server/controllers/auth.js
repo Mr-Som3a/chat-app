@@ -2,8 +2,19 @@ import bcrypt from "bcryptjs";
 import User from "../models/users.model.js";
 import genToken from "../genToken.js";
 
+
+export const checkAuth = (req, res) => {
+  try {
+    res.status(200).json(req.user);
+  } catch (error) {
+    console.log("Error in checkAuth controller", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};  
+
 export const Signup = async (req, res) => {
   try {
+    console.log('her')
     const { fullName, email, password } = req.body;
     const picturePath = req.file||"";
 
@@ -56,11 +67,3 @@ export const Logout = async (req, res) => {
   res.status(200).send("loged out");
 };
 
-export const checkAuth = (req, res) => {
-  try {
-    res.status(200).json(req.user);
-  } catch (error) {
-    console.log("Error in checkAuth controller", error.message);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-};  

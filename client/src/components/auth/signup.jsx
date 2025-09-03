@@ -1,7 +1,7 @@
 import { TextField, Button, Box } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { signup } from "../../../api/auth";
+import useUserStore from "../../store/user";
 
 const SignupSchema = Yup.object().shape({
   fullName: Yup.string().required("Required"),
@@ -10,6 +10,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignupForm = ({ onSuccess,btn }) => {
+  const {signUp} =useUserStore()
   return (
     <Formik
       initialValues={{ fullName: "", email: "", password: "" }}
@@ -18,7 +19,7 @@ const SignupForm = ({ onSuccess,btn }) => {
         console.log("Signup:", values)
       
         try {
-          const data = await signup(values)
+          const data = await signUp(values)
         console.log(data)
         } catch (error) {
           console.log(error)

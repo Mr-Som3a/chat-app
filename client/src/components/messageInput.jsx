@@ -9,13 +9,16 @@ const MessageInput = ({msg,setMsg,handleSend}) => {
     <Box sx={{ display: "flex", gap: 1 }}>
       <TextField
         fullWidth
+      
         variant="outlined"
         placeholder="Type a message"
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" }
+        onKeyDown={(e) => { if(e.key === "Enter"){
+          handleSend()
+        }} }
       />
-      <IconButton color="primary" onClick={()=>handleSend()}>
+      <IconButton color="primary" onClick={handleSend}>
         <SendIcon />
       </IconButton>
     </Box>
