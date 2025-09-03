@@ -39,7 +39,7 @@ const router = createBrowserRouter([
     element: <AuthPage />,
   },
   {
-    path: "logout",
+    path: "/logout",
     element: <Logout />,
   },
 ]);
