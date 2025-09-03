@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = `${import.meta.env.VITE_SERVER_URL}/api/users`;
+const URL = import.meta.env.MODE === "development"?`${import.meta.env.VITE_SERVER_URL}/api/users`:"/api/users"
 
 export const getUsers = async () => {
   
