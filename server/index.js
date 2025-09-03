@@ -19,12 +19,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 //  MIDDELWARES
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static(path.join(__dirname,'../client/dist')))
-  app.get("/*path", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-  });
-}
+
 app.use(express.json())
 app.use(cors({
   origin: 'http://localhost:8080', 
