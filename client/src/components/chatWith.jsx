@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import useUserStore from "../store/user";
 import useMessageStore from "../store/message";
 import { useParams } from "react-router-dom";
-import { CircleX, Image, Send } from "lucide-react";
+import { CircleIcon, CircleX, Image, Send } from "lucide-react";
 
 const ChatWith = () => {
   const [text, setText] = useState("");
