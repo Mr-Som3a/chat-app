@@ -2,6 +2,7 @@ import { CircleIcon, LogOut, Menu, MessageCircle, User } from "lucide-react";
 import useUserStore from "../store/user";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Avatar from "./avatar";
 
 const Navbar = () => {
   const { currentUser,fetchUsers,users,setChatWith, onlineUsers } = useUserStore();
@@ -58,10 +59,10 @@ useEffect(() => {
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full bg-green-500 flex items-center justify-center">
-                {(currentUser && <img src={currentUser.picturePath} />) || (
+              <div className="w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                {(currentUser?.picturePath !== "" && <img alt={'img'} src={currentUser?.picturePath} />) || (
                   <span className="font-bold text-white">
-                    {currentUser?.fullName.split(0, 1)}
+                    <img  src="/avatar.svg" alt="" />
                   </span>
                 )}
               </div>

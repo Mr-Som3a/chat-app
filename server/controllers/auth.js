@@ -14,7 +14,7 @@ export const checkAuth = (req, res) => {
 
 export const Signup = async (req, res) => {
   try {
-    console.log('her')
+
     const { fullName, email, password } = req.body;
     const picturePath = req.file||"";
 

@@ -7,15 +7,19 @@ import { useNavigate } from "react-router-dom";
 import useUserStore from "../../store/user";
 import { MessageCircle } from "lucide-react";
 import LoadingSpinner from "../loadingSpinner";
-import toast from "react-hot-toast";
+import { signup } from "../../../api/auth";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string().min(6, "Min 6 characters").required("Required"),
 });
+const SignUpSchema = Yup.object().shape({
+  fullName: Yup.string().required("Required"),
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string().min(6, "Min 6 characters").required("Required"),
+});
 
 const AuthForm = () => {
-  // useToaster()
   const [isLogin, setIsLogin] = useState(true);
   const [isSubmitting, setIsSubmitting] =useState(false)
   const { login,isLoading,error} = useUserStore();
@@ -38,11 +42,11 @@ const AuthForm = () => {
       {/*  */}
       <Formik
         initialValues={{ email: "", password: "" }}
-        validationSchema={LoginSchema}
+        validationSchema={isLogin?LoginSchema:SignUpSchema}
         onSubmit={async (values) => {
           setIsSubmitting(true)
           try {
-            await login(values);
+            isLogin?await login(values):await signup(values);
             navigate("/");
           } catch (error) {
             console.log(error);
@@ -55,13 +59,13 @@ const AuthForm = () => {
           <Form>
             {!isLogin && (
               <Field
-                name="fullname"
+                name="fullName"
                 as={TextField}
                 fullWidth
                 label="Full Name"
                 margin="normal"
-                error={!!errors.email && touched.email}
-                helperText={touched.email && errors.email}
+                error={!!errors.fullName && touched.fullName}
+                helperText={touched.fullName && errors.fullName}
               />
             )}
             <Field

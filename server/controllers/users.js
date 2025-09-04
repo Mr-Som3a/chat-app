@@ -25,6 +25,7 @@ export const ProfileImg = async (req, res) => {
       unique_filename: false,  // do not add random string
       overwrite: true,         // optional: replace if exists
     });
+    console.log(uploadResponse.secure_url)
     const updatedUser = await User.findByIdAndUpdate(
       id,
       { picturePath: uploadResponse.secure_url },

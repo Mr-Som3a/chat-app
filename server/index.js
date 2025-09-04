@@ -38,7 +38,6 @@ app.use("/api/users",usersRouter)
 server.listen(port,()=>{
     console.log('server listening on port '+ port)
     //  DATA BASE CONNECTION
-    console.log(process.env.NODE_ENV)
     dataBase()
     
 })

@@ -46,12 +46,14 @@ const useUserStore = create((set, get) => ({
   },
 
   signUp: async (body) => {
+    set({ error: null });
     try {
       const data = await signup(body);
       set({ currentUser: data });
       get().connectSocket();
     } catch (error) {
-      set({ error });
+      console.log(error,'store')
+      set({error});
     } 
   },
   updateProfilePic: async (data) => {

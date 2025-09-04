@@ -12,13 +12,11 @@ export const checkAuth= async () => {
 
 export const signup = async (body) => {
 
-    const { data } = await axios.post(URL + "/signup", body, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const { data } = await axios.post(`${URL}/signup`, body);
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
     
-    return data;
+    return data.user;
 };
 
 export const login = async (body) => {

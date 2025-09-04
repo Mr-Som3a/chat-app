@@ -14,7 +14,7 @@ const Avatar = ({ src, alt }) => {
 
       {/* Image */}
       <img
-        src={src}
+        src={src||"/avatar.svg"}
         alt={alt}
         loading="lazy"
         onLoad={() => setLoading(false)}
