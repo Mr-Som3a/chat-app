@@ -20,20 +20,20 @@ const __dirname = path.dirname(__filename)
 
 
 //  MIDDELWARES
+app.use(cors({
+  origin: ["http://localhost:8080","https://chat-app-client-side-s4sj.onrender.com"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true               // If you are using cookies or headers
+}));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
 if(process.env.NODE_ENV === 'production'){
   app.use(express.static(path.join(__dirname,'..','client','dist')))
   app.get("/*splat", (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
   });
 }
-
-app.use(express.json())
-app.use(cors({
-  origin: ['http://localhost:8080',"https://chat-app-client-side-s4sj.onrender.com"],
-  credentials: true               // If you are using cookies or headers
-}));
-app.use(express.urlencoded({ extended: true }));
-
 //  ROUTES
 app.use("/api/auth",authRouter) 
 app.use("/api/message",messageRouter)
