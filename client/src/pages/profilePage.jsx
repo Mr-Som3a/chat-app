@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Edit, Mail, User, Camera } from "lucide-react";
 import useUserStore from "../store/user";
 import Avatar from "../components/avatar";
-import axios from "axios";
 import LoadingSpinner from "../components/loadingSpinner";
 
 

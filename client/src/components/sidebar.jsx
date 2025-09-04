@@ -1,10 +1,8 @@
-import { Box, List, ListItem, Avatar, SwipeableDrawer } from "@mui/material";
 import useUserStore from "../store/user.js";
-import CircleIcon from "@mui/icons-material/Circle";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 const Sidebar = () => {
-  const { users, fetchUsers, setChatWith, onlineUsers } = useUserStore();
+  const { users, fetchUsers, setChatWith} = useUserStore();
   useEffect(() => {
     fetchUsers();
   }, []);

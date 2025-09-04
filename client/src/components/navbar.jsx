@@ -1,7 +1,7 @@
-import { CircleIcon, LogOut, Menu, MessageCircle, Settings, User } from "lucide-react";
+import { CircleIcon, LogOut, Menu, MessageCircle, User } from "lucide-react";
 import useUserStore from "../store/user";
-import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { currentUser,fetchUsers,users,setChatWith, onlineUsers } = useUserStore();

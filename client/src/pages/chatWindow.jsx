@@ -1,4 +1,3 @@
-import useUserStore from "../store/user";
 import Navbar from "../components/navbar";
 import Sidebar from "../components/sidebar";
 import { Outlet } from "react-router-dom";
