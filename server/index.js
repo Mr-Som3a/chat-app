@@ -20,12 +20,12 @@ const __dirname = path.dirname(__filename)
 
 
 //  MIDDELWARES
+app.use(express.json())
 app.use(cors({
   origin: ["http://localhost:8080","https://chat-app-client-side-s4sj.onrender.com"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true               // If you are using cookies or headers
 }));
-app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 if(process.env.NODE_ENV === 'production'){
