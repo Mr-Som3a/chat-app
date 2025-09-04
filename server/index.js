@@ -29,7 +29,7 @@ if(process.env.NODE_ENV === 'production'){
 
 app.use(express.json())
 app.use(cors({
-  origin: 'http://localhost:8080', 
+  origin: ['http://localhost:8080',"https://chat-app-client-side-s4sj.onrender.com"],
   credentials: true               // If you are using cookies or headers
 }));
 app.use(express.urlencoded({ extended: true }));
