@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import Avatar from "./avatar";
 
 const Navbar = () => {
-  const { currentUser,fetchUsers,users,setChatWith, onlineUsers } = useUserStore();
-useEffect(() => {
+  const { currentUser, fetchUsers, users, setChatWith, onlineUsers } =
+    useUserStore();
+  useEffect(() => {
     fetchUsers();
   }, []);
-  console.log(onlineUsers)
+  console.log(onlineUsers);
   return (
     <>
       <div className="navbar  bg-green-700 text-white px-4">
@@ -18,52 +19,72 @@ useEffect(() => {
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
             {/* Page content here */}
-            <label htmlFor="my-drawer" className="btn bg-transparent border-0 shadow-none rounded-full  drawer-button"><Menu className="text-white" size={20} /></label>
+            <label
+              htmlFor="my-drawer"
+              className="btn bg-transparent border-0 shadow-none rounded-full  drawer-button"
+            >
+              <Menu className="text-white" size={20} />
+            </label>
           </div>
           <div className="drawer-side">
-            <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+            <label
+              htmlFor="my-drawer"
+              aria-label="close sidebar"
+              className="drawer-overlay"
+            ></label>
             <ul className="menu bg-base-300 text-base-content min-h-full w-72 py-4">
               {/* Sidebar content here */}
-              
-        {users?.length === 0 ? (
-          <div className="font-bold px-4">Empty</div>
-        ) : (
-          users?.map((user) => (
-            <Link
-              key={user._id}
-              to={`/message/${user._id}`}
-              onClick={() => setChatWith(user)}
-              className="flex flex-row items-center p-2 space-x-3 focus:bg-green-100"
-            >
-                <div className="avatar w-fit">
-                  <div className="w-10 rounded-full">
-                    <img alt={"user"} src={user.picturePath} />
-                  </div>
-                  {onlineUsers.includes(user._id) && (
-                    <span className="absolute z-30 left-8 -bottom-2 ">
-                      <CircleIcon style={{ fill: "green", width: "11px" }} />
-                    </span>
-                  )}
-                </div>
-                <div className="w-fit text-black">{user.fullName}</div>
-            </Link>
-          ))
-        )}
-    
-    
+
+              {users?.length === 0 ? (
+                <div className="font-bold px-4">Empty</div>
+              ) : (
+                users?.map((user) => (
+                  <Link
+                    key={user._id}
+                    to={`/message/${user._id}`}
+                    onClick={() => setChatWith(user)}
+                    className="flex flex-row items-center p-2 space-x-3 focus:bg-green-100"
+                  >
+                    <div className="avatar w-fit">
+                      <div className="w-10 rounded-full">
+                        {(user.picturePath && (
+                          <img alt={"user"} src={user.picturePath} />
+                        )) || (
+                          <div className="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center">
+                            {chatWith.fullName.slice(0, 1)}
+                          </div>
+                        )}
+                      </div>
+                      {onlineUsers.includes(user._id) && (
+                        <span className="absolute z-30 left-8 -bottom-2 ">
+                          <CircleIcon
+                            style={{ fill: "green", width: "11px" }}
+                          />
+                        </span>
+                      )}
+                    </div>
+                    <div className="w-fit text-black">{user.fullName}</div>
+                  </Link>
+                ))
+              )}
             </ul>
           </div>
         </div>
         <div className="flex-1">
-          <h1 className="ml-4 md:ml-0 text-xl flex font-bold">  ChatSphere <MessageCircle className="w-4 h-4 "/></h1>
+          <h1 className="ml-4 md:ml-0 text-xl flex font-bold">
+            {" "}
+            ChatSphere <MessageCircle className="w-4 h-4 " />
+          </h1>
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full bg-gray-300 flex items-center justify-center">
-                {(currentUser?.picturePath !== "" && <img alt={'img'} src={currentUser?.picturePath} />) || (
+                {(currentUser?.picturePath !== "" && (
+                  <img alt={"img"} src={currentUser?.picturePath} />
+                )) || (
                   <span className="font-bold text-white">
-                    <img  src="/avatar.svg" alt="" />
+                    <img src="/avatar.svg" alt="" />
                   </span>
                 )}
               </div>
