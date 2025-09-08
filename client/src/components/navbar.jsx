@@ -51,7 +51,7 @@ const Navbar = () => {
                           <img alt={"user"} src={user.picturePath} />
                         )) || (
                           <div className="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center">
-                            {chatWith.fullName.slice(0, 1)}
+                            {user.fullName.slice(0, 1)}
                           </div>
                         )}
                       </div>
